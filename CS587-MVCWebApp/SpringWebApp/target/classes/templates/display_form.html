@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Result</title>
+<link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+    th:href="@{/css/display_form.css}" />
+</head>
+
+<body>
+	<h2>Results</h2>
+	<div class="container py-5">
+    <div class="row">
+        <div class="col-10 mx-auto">
+            <h1>All entries</h1>
+            <!--display error if any-->
+            <div class="alert alert-danger" role="alert" th:if="${!status}">
+                <strong>Error:</strong>
+                <span th:text="${message}"></span>
+            </div>
+
+            <!--display users list-->
+            <table class="table table-striped" th:if="${status}">
+                <thead>
+                <tr>
+                    <th scope="col">index</th>
+                    <th scope="col">type</th>
+                    <th scope="col">content</th>
+                    <th scope="col">Odd or Even</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry, i : ${entries}">
+                    <th scope="row" th:text="${i.index + 1}"></th>
+                    <td th:text="${entry.type}"></td>
+                    <td th:text="${entry.content}"></td>
+                    <td><div th:if="${entry.isOdd}" th:text="odd"></div><div th:if="${!entry.isOdd}" th:text="even"></div></td>
+                </tr>
+                </tbody>
+            </table>
+				<div><a th:href="@{/entry_form}">Go to Entry Form</a></div>
+				<div><a th:href="@{/download_CSV}">Download CSV file</a></div>
+            </div>
+            
+        </div>
+    </div>
+</div>
+       
+</body>
+</html>
